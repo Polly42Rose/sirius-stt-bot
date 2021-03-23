@@ -4,7 +4,7 @@ import requests
 import subprocess
 import tempfile
 import os
-TELEGRAM_API_TOKEN = '1616165730:AAEUVpUwpefkxn8gxiQtf6HMVRijKOcIyaQ'
+TELEGRAM_API_TOKEN = ''
 bot = telebot.TeleBot(TELEGRAM_API_TOKEN)
 
 
