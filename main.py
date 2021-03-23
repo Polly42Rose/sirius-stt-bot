@@ -1,7 +1,7 @@
 import telebot
 import string
 
-token = 'VERY_SECRET_TOKEN'
+token = '1616165730:AAEUVpUwpefkxn8gxiQtf6HMVRijKOcIyaQ'
 bot = telebot.TeleBot(token)
 
 
