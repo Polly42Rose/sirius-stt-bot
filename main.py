@@ -4,13 +4,14 @@ import requests
 import subprocess
 import tempfile
 import os
-token = ''
-bot = telebot.TeleBot(token)
+TELEGRAM_API_TOKEN = '1616165730:AAEUVpUwpefkxn8gxiQtf6HMVRijKOcIyaQ'
+bot = telebot.TeleBot(TELEGRAM_API_TOKEN)
 
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     bot.reply_to(message, f'Я бот. Приятно познакомиться, {message.from_user.first_name}')
+
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
@@ -21,11 +22,12 @@ def get_text_messages(message):
     else:
         bot.send_message(message.from_user.id, 'Не понимаю, что это значит.')
 
+
 @bot.message_handler(content_types=['voice'])
 def voice_processing(message):
     file_info = bot.get_file(message.voice.file_id)
-    file = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(token, file_info.file_path))
-    with open("audio.ogg", "wb+") as f:
+    file = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(TELEGRAM_API_TOKEN, file_info.file_path))
+    with open("source/audio.ogg", "wb+") as f:
         f.write(file.content)
 
 
