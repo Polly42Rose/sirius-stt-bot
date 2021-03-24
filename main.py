@@ -3,11 +3,14 @@ import string
 import requests
 import os
 import glob
+import torch
+from inference import InferenceModel
+
 
 TELEGRAM_API_TOKEN = ''
 AUDIO_FOLDER = "audio"
 bot = telebot.TeleBot(TELEGRAM_API_TOKEN)
-model = None
+model = InferenceModel(checkpoint_path='/home/mnakhodnov/sirius-stt/models/6_recovered/epoch_0.pt', device=torch.device('cpu'))
 
 
 @bot.message_handler(commands=['start', 'help'])
@@ -49,11 +52,11 @@ def voice_processing(message):
     filename = os.path.join(user_folder, f"{new_id}.ogg")
     with open(filename, "wb+") as f:
         f.write(file.content)
-    # text = model.run(os.path.join("../stt-bot/audio", filename))
-    text = "PUNK"
+    text = model.run(os.path.join("../stt-bot/audio", filename))
     bot.send_message(message.from_user.id, f'Распознанный текст: {text}.')
 
 
 if __name__ == "__main__":
+
     bot.polling(none_stop=True)
 
